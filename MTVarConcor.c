@@ -13,7 +13,7 @@
 **  Revision   Date       Engineer       Description of Change
 **  --------   --------   ------------   ------------------------------
 **  1.0        30 Apr 23   L. Johnson     Initial Release 
-                                  
+**  1.1        02 May 23   L. Johnson     Handle ctl-z file terminator                                  
 **********************************************************************/
 #define TRUE  1
 #define FALSE 0
@@ -69,7 +69,7 @@ FILE  *fi, *fo;
 
 
 
-  printf("MTVarConcor - Version 1.0\n");
+  printf("MTVarConcor - Version 1.1\n");
 
 
   printf("Enter input file name: ");
@@ -97,6 +97,7 @@ FILE  *fi, *fo;
   while (done == 0) {
     if (fgets(str_in,256,fi) == NULL) done=1;
     if (strlen(str_in)<3) done=1; // nothing much in this line so we quit
+    if (str_in[0]==26) done=1;  // A control-Z will terminate this input file
     if (done==0) {
       // Remove carriage return & linefeed
       los=strlen(str_in);  // length of input string
